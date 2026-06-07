@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calorie Counter</title>
+
+  <!-- Tailwind CSS (via CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Karla:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <!-- Custom Tailwind config: our fonts + a "blush" colour family
+       built around #FFC5D3 (blush-300 is the exact hex) -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Fraunces', 'serif'],
+            body: ['Karla', 'sans-serif'],
+          },
+          colors: {
+            blush: {
+              50:  '#FFF5F8',
+              100: '#FFE9EF',
+              200: '#FFD7E1',
+              300: '#FFC5D3',
+              400: '#F5A3B9',
+              500: '#E07B98',
+              600: '#C25677',
+              700: '#9C3F5C',
+              800: '#7A2F47',
+              900: '#5C2235',
+            },
+          },
+        },
+      },
+    };
+  </script>
+</head>
+
+<body class="min-h-screen bg-blush-50 font-body text-blush-900">
+
+  <main class="mx-auto max-w-xl px-4 py-10">
+
+    <!-- Header -->
+    <header class="mb-8 text-center">
+      <h1 class="font-display text-4xl font-bold text-blush-800">Calorie Counter</h1>
+      <p class="mt-2 text-blush-600">Track what you eat, one meal at a time 🍴</p>
+    </header>
+
+    <!-- Daily total + progress bar -->
+    <section class="mb-6 rounded-2xl bg-blush-200 p-6 shadow-sm">
+      <div class="flex items-end justify-between">
+        <div>
+          <p class="text-sm uppercase tracking-wide text-blush-600">Today's total</p>
+          <p class="font-display text-4xl font-bold text-blush-900">
+            <span id="total-calories">0</span>
+            <span class="text-lg font-normal text-blush-600">/ 2000 kcal</span>
+          </p>
+        </div>
+        <button id="reset-btn" class="rounded-lg bg-white/70 px-4 py-2 text-sm font-bold text-blush-700 transition hover:bg-white">
+          Reset Day
+        </button>
+      </div>
+
+      <!-- Progress bar -->
+      <div class="mt-4 h-3 w-full overflow-hidden rounded-full bg-white/60">
+        <div id="progress-bar" class="h-full w-0 rounded-full bg-blush-500 transition-all duration-500"></div>
+      </div>
+    </section>
+
+    <!-- Add food form -->
+    <section class="mb-6 rounded-2xl border border-blush-100 bg-white p-6 shadow-sm">
+      <h2 class="mb-4 font-display text-xl font-semibold text-blush-800">Add a food item</h2>
+
+      <form id="food-form" class="flex flex-col gap-3 sm:flex-row">
+        <input
+          id="food-name"
+          type="text"
+          placeholder="e.g. Chapati"
+          required
+          class="flex-1 rounded-lg border border-blush-200 px-4 py-2 focus:border-blush-400 focus:outline-none"
+        />
+        <input
+          id="food-calories"
+          type="number"
+          min="1"
+          placeholder="kcal"
+          required
+          class="w-full rounded-lg border border-blush-200 px-4 py-2 focus:border-blush-400 focus:outline-none sm:w-28"
+        />
+        <button type="submit" class="rounded-lg bg-blush-300 px-5 py-2 font-bold text-blush-900 transition hover:bg-blush-400">
+          Add
+        </button>
+      </form>
+
+      <!-- Calorie lookup (Fetch API, simulated with a placeholder API) -->
+      <div class="mt-3 flex items-center gap-3">
+        <button id="lookup-btn" type="button" class="text-sm font-bold text-blush-600 underline hover:text-blush-700">
+          Look up calories for me
+        </button>
+        <p id="lookup-message" class="text-sm text-blush-600"></p>
+      </div>
+
+    </section>
+
+    <!-- Food list -->
+    <section class="rounded-2xl border border-blush-100 bg-white p-6 shadow-sm">
+      <h2 class="mb-4 font-display text-xl font-semibold text-blush-800">Today's food</h2>
+      <ul id="food-list" class="divide-y divide-blush-100"></ul>
+      <p id="empty-message" class="py-4 text-center text-blush-400">Nothing logged yet — add your first meal above.</p>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
